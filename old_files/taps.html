@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for tools in tooling %}
+    {% if tools.category == "Taps" %}
+        <p>{{tools.item}} {{tools.descript}} {{tools.location}} {{tools.quantity}} {{tools.minimum}}
+        {{tools.image}} {{tools.machine}} {{tools.manufacturer}} {{tools.edp}} {{tools.vendor}} {{tools.purchased}}</p>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
