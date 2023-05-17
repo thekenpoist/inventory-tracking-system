@@ -19,7 +19,6 @@ class Cabinet_Tooling(db.Model):
     sub_category_url = db.Column(db.String(50), nullable=False)
     sub_category_image = db.Column(db.String(250))
     item = db.Column(db.String(250), nullable=False)
-    item_url = db.Column(db.String(50), nullable=False)
     item_image = db.Column(db.String(250))
     descript = db.Column(db.String(250))
     location = db.Column(db.Integer, nullable=False)

@@ -1,11 +1,89 @@
 {% extends "base.html" %}
 
 {% block content %}
+<section class="p-5">
+    <div class="container">
+        
+        {% for tools in tooling %}
+                <div class="text-center">
+                    
+                            <img src="{{ url_for('static', filename=tools.item_image) }}" class="mh-100" style="width: 196px"></a>
+                        
+                </div>
+    </div>
+<section class="p-5">
+<section class="p-5">
+        <div class="container">
 
+            <div class="container text-start">
+                <div class="row">
+                    <div class="col">
+                        Item: 
+                    </div>
+                    <div class="col">
+                        {{tools.item}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Description:
+                    </div>            
+                    <div class="col">
+                        {{tools.descript}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Location:
+                    </div>
+                    <div class="col">
+                        {{tools.location}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Quantity On Hand:
+                    </div>
+                    <div class="col">
+                        {{tools.quantity}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Manufacturer: 
+                    </div>
+                    <div class="col">
+                        {{tools.manufacturer}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        EDP Number: 
+                    </div>
+                    <div class="col">
+                        {{tools.edp}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Supplier: 
+                    </div>
+                    <div class="col">
+                        {{tools.vendor}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Last Purchase Date: 
+                    </div>
+                    <div class="col">
+                        {{tools.purchased}}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
 
-{% for tools in tooling %}
-    <p>{{tools.item}} {{tools.descript}} {{tools.location}} {{tools.quantity}} {{tools.minimum}}
-    {{tools.image}} {{tools.machine}} {{tools.manufacturer}} {{tools.edp}} {{tools.vendor}} {{tools.purchased}}</p>
-{% endfor %}
 
 {% endblock %}

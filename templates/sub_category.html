@@ -7,10 +7,10 @@
         <div class="row text-center">
         {% for tools in tooling %}
                 <div class="col-md mb-3">
-                    <div class="card" style="width: 18rem;">   
-                        <a href="{{ url_for('items_url', ind_item=tools.edp) }}"><img src="{{ url_for('static', filename=tools.item_image) }}"></a>
+                    <div class="card h-100" style="width: 18rem;">   
                         <div class="card-body">
-                            <p class="card-text text-center">{{ tools.item}}</p>
+                            <h5 class="card-title">{{ tools.item }}</p>
+                            <a href="{{ url_for('items_url', ind_item=tools.edp) }}"><img src="{{ url_for('static', filename=tools.item_image) }}"></a>
                         </div>
                     </div>
                 </div>
