@@ -1,6 +1,8 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import update, insert
+from sqlalchemy.orm import Session
 
 app = Flask(__name__)
 app.secret_key = "tarfu"
@@ -53,12 +55,25 @@ def sub_category_url(sub_cat_url):
     return render_template('sub_category.html', tooling=tooling)
 
 
-@app.route('/foo/<ind_item>')
+@app.route('/sub/<ind_item>')
 def items_url(ind_item):
     tooling = Cabinet_Tooling.query.filter_by(edp=ind_item).order_by(Cabinet_Tooling.edp).all()
     
     return render_template('items.html', tooling=tooling)
 
+
+@app.route('/item/<product_code>', methods=['POST'])
+def update(product_code):
+    product = Cabinet_Tooling.query.get(product_code)
+    if product.quantity > 0:
+        new_quantity = product.quantity - 1
+        product.quantity = new_quantity
+        db.session.commit()
+
+
+    tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
+
+    return render_template('items.html', tooling=tooling)
 
 if __name__ == '__main__':
     app.run()
