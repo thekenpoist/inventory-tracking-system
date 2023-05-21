@@ -1,97 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="p-5">
-    <div class="container">
-        
-        {% for tools in tooling %}
-                <div class="text-center">
-                    
-                            <img src="{{ url_for('static', filename=tools.item_image) }}" class="mh-100" style="width: 196px"></a>
-                        
-                </div>
-    </div>
-</section>
-<section class="p-5">
-        <div class="container">
 
-            <div class="container text-start">
-                <div class="row">
-                    <div class="col">
-                        Item: 
-                    </div>
-                    <div class="col">
-                        {{tools.item}}
-                    </div>
+
+
+
+<section class="p-5"> 
+    {% for tools in tooling %}
+        <div class="card" style="width: 40rem;">
+            <div class="text-center">
+                <img src="{{ url_for('static', filename=tools.item_image) }}" class="card-img-top" style="width: 196px">
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <h3 class="card-title">{{tools.item}}</h3>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        Description:
-                    </div>            
-                    <div class="col">
-                        {{tools.descript}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        Location:
-                    </div>
-                    <div class="col">
-                        {{tools.location}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        Quantity On Hand:
-                    </div>
-                    <div class="col">
-                        {{tools.quantity}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        Manufacturer: 
-                    </div>
-                    <div class="col">
-                        {{tools.manufacturer}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        EDP Number: 
-                    </div>
-                    <div class="col">
-                        {{tools.edp}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        Supplier: 
-                    </div>
-                    <div class="col">
-                        {{tools.vendor}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        Last Purchase Date: 
-                    </div>
-                    <div class="col">
-                        {{tools.purchased}}
-                    </div>
+                    <p class="card-text">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                                <tr class="table-success">
+                                    <td>Description:</td>
+                                    <td>{{tools.descript}}</td>
+                                </tr>
+
+                                <tr class="table-danger">
+                                    <td>Location:</td>
+                                    <td>{{tools.location}}</td>
+                                </tr>
+                                <tr class="table-success">
+                                    <td>Quantity On Hand:</td>
+                                    <td>{{tools.quantity}}</td>
+                                </tr>
+                                <tr class="table-danger">
+                                    <td>Manufacturer:</td>
+                                    <td>{{tools.manufacturer}}</td>
+                                </tr>
+                                <tr class="table-success">
+                                    <td>EDP Number:</td>
+                                    <td>{{tools.edp}}</td>
+                                </tr>
+                                <tr class="table-danger">
+                                    <td>Supplier:</td>
+                                    <td>{{tools.vendor}}</td>
+                                </tr>
+                                <tr class="table-success">
+                                    <td>Last Purchase Date:</td>
+                                    <td>{{tools.purchased}}</td>
+                                </tr>
+                           
+                            </tbody>
+                        </table>
+                    </p>
+                <div class="text-center">
+                    {% if tools.quantity > 0 %}
+                        <form action="{{ url_for('update', product_code=tools.edp) }}" method="POST">
+                            <input type="submit" value="REMOVE ONE FROM INVENTORY">
+                        </form>
+                    {% else %}
+                        <h3 style="color:red;">OUT OF STOCK</h3>
+                    {% endif %}
                 </div>
             </div>
-        
-        {% if tools.quantity > 0 %}
-        <form action="{{ url_for('update', product_code=tools.edp) }}" method="POST">
-            <input type="submit" value="REMOVE ONE FROM INVENTORY">
-        </form>
-        {% else %}
-        <h4 style="color:red;">OUT OF STOCK</h4>
-        {% endif %}
+        </div>
+    {% endfor %}
 
-        {% endfor %}
-    </div>
 </section>
 
 {% endblock %}
