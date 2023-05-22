@@ -70,7 +70,6 @@ def update(product_code):
         product.quantity = new_quantity
         db.session.commit()
 
-
     tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
 
     return render_template('items.html', tooling=tooling)
