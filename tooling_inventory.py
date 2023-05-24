@@ -74,6 +74,8 @@ def update(product_code):
 
     return render_template('items.html', tooling=tooling)
 
+
+
 if __name__ == '__main__':
     app.run()
 
