@@ -75,7 +75,7 @@ def remove_item(product_code):
     return render_template('items.html', tooling=tooling)
 
 
-@app.route('/update/<product_code>', methods=['POST'])
+@app.route('/update/<product_code>', methods=['GET', 'POST'])
 def add_item(product_code):
     pass
     product = Cabinet_Tooling.query.get(product_code)
