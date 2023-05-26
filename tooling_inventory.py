@@ -78,7 +78,7 @@ def remove_item(product_code):
 @app.route('/update/<product_code>', methods=['POST'])
 def add_item(product_code):
     pass
-    #product = Cabinet_Tooling.query.get(product_code)
+    product = Cabinet_Tooling.query.get(product_code)
     #if product.quantity > 0:
         #new_quantity = product.quantity - 1
         #product.quantity = new_quantity
