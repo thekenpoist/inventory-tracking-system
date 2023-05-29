@@ -75,10 +75,13 @@ def remove_item(product_code):
     return render_template('items.html', tooling=tooling)
 
 
-@app.route('/update/<product_code>', methods=['GET', 'POST'])
-def add_item(product_code, product_quantity):
+@app.route('/update>', methods=['GET', 'POST'])
+def add_item():
+    product_code = request.args.get('product_code')
+    product_quantity = request.args.get('product_quantity')
+    print(product_code, product_quantity)
     product = Cabinet_Tooling.query.get(product_code)
-    new_quantity = product.quantity + product_quantity
+    new_quantity = product.quantity + int(product_quantity)
     product.quantity = new_quantity
     db.session.commit()
 
