@@ -52,13 +52,11 @@
                         </table>
                     </p>
                 <div class="text-center">
-                    {% if tools.quantity > 0 %}
-                        <form action="{{ url_for('update', product_code=tools.edp) }}" method="POST">
-                            <input type="submit" value="REMOVE ONE FROM INVENTORY">
-                        </form>
-                    {% else %}
-                        <h3 style="color:red;">OUT OF STOCK</h3>
-                    {% endif %}
+                    <form action="{{ url_for('add_item', product_code=tools.edp, product_quantity=quantity ) }}" method="POST">
+                        <label for="quantity">Quantity:</label>
+                        <input type="text" id='quantity'>
+                        <button type="submit">ADD TO INVENTORY</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -76,19 +76,24 @@ def remove_item(product_code):
 
 
 @app.route('/update/<product_code>', methods=['GET', 'POST'])
-def add_item(product_code):
-    pass
+def add_item(product_code, product_quantity):
     product = Cabinet_Tooling.query.get(product_code)
-    #if product.quantity > 0:
-        #new_quantity = product.quantity - 1
-        #product.quantity = new_quantity
-        #db.session.commit()
+    new_quantity = product.quantity + product_quantity
+    product.quantity = new_quantity
+    db.session.commit()
 
-    #tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
+    tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
 
-    #return render_template('items.html', tooling=tooling)
+    return render_template('items.html', tooling=tooling)
 
 
+
+@app.route('/prod/<product_code>')
+def admin_quantity(product_code):
+    tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
+    print(product_code)
+    
+    return render_template('update_item.html', tooling=tooling)
 
 
 
