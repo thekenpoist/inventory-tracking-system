@@ -75,11 +75,12 @@ def remove_item(product_code):
     return render_template('items.html', tooling=tooling)
 
 
-@app.route('/update>', methods=['GET', 'POST'])
+@app.route('/add/update>', methods=['POST'])
 def add_item():
     product_code = request.args.get('product_code')
-    product_quantity = request.args.get('product_quantity')
-    print(product_code, product_quantity)
+    product_quantity = request.form.get('quantity')
+    print(product_code)
+    print(product_quantity)
     product = Cabinet_Tooling.query.get(product_code)
     new_quantity = product.quantity + int(product_quantity)
     product.quantity = new_quantity
@@ -94,7 +95,6 @@ def add_item():
 @app.route('/prod/<product_code>')
 def admin_quantity(product_code):
     tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
-    print(product_code)
     
     return render_template('update_item.html', tooling=tooling)
 

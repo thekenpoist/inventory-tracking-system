@@ -52,9 +52,9 @@
                         </table>
                     </p>
                 <div class="text-center">
-                    <form action="{{ url_for('add_item', product_code=tools.edp, product_quantity=quantity ) }}" method="POST">
+                    <form action="{{ url_for('add_item', product_code=tools.edp) }}" method="POST">
                         <label for="quantity">Quantity:</label>
-                        <input type="text" id='quantity'>
+                        <input type="number" id="quantity" name="quantity" value="{{ quantity }}">
                         <button type="submit">ADD TO INVENTORY</button>
                     </form>
                 </div>
