@@ -13,39 +13,39 @@
             </div>
             <div class="card-body">
                 <div class="text-center">
-                    <h3 class="card-title">{{tools.item}}</h3>
+                    <h3 class="card-title">{{ tools.item }}</h3>
                 </div>
                     <p class="card-text">
                         <table class="table table-striped table-hover">
                             <tbody>
                                 <tr class="table-success">
                                     <td>Description:</td>
-                                    <td>{{tools.descript}}</td>
+                                    <td>{{ tools.descript }}</td>
                                 </tr>
 
                                 <tr class="table-danger">
                                     <td>Bin Number:</td>
-                                    <td>{{tools.location}}</td>
+                                    <td>{{ tools.location }}</td>
                                 </tr>
                                 <tr class="table-success">
                                     <td>In Stock:</td>
-                                    <td>{{tools.quantity}}</td>
+                                    <td>{{ tools.quantity }}</td>
                                 </tr>
                                 <tr class="table-danger">
                                     <td>Manufacturer:</td>
-                                    <td>{{tools.manufacturer}}</td>
+                                    <td>{{ tools.manufacturer }}</td>
                                 </tr>
                                 <tr class="table-success">
                                     <td>EDP Number:</td>
-                                    <td>{{tools.edp}}</td>
+                                    <td>{{ tools.edp }}</td>
                                 </tr>
                                 <tr class="table-danger">
                                     <td>Supplier:</td>
-                                    <td>{{tools.vendor}}</td>
+                                    <td>{{ tools.vendor }}</td>
                                 </tr>
                                 <tr class="table-success">
                                     <td>Purchase Date:</td>
-                                    <td>{{tools.purchased}}</td>
+                                    <td>{{ tools.purchased.strftime('%m/%d/%Y') }}</td>
                                 </tr>
                            
                             </tbody>

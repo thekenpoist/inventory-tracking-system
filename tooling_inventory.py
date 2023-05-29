@@ -109,7 +109,6 @@ def add_item():
     return render_template('items.html', nav_bar=nav_bar, tooling=tooling)
 
 
-
 @app.route('/prod/<product_code>')
 @auth.login_required
 def admin(product_code):
