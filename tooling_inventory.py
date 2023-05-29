@@ -51,28 +51,32 @@ def verify_password(username, password):
 @app.route('/')
 def index():
     tooling = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
+    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
 
-    return render_template('index.html', tooling=tooling)
+    return render_template('index.html', nav_bar=nav_bar, tooling=tooling)
 
 @app.route('/<cat_url>')
 def category_url(cat_url):
     tooling = Cabinet_Tooling.query.filter_by(category_url=cat_url).order_by(Cabinet_Tooling.category).all()
+    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
 
-    return render_template('category.html', tooling=tooling)
+    return render_template('category.html', nav_bar=nav_bar, tooling=tooling)
 
 
 @app.route('/cat/<sub_cat_url>')
 def sub_category_url(sub_cat_url):
     tooling = Cabinet_Tooling.query.filter_by(sub_category_url=sub_cat_url).order_by(Cabinet_Tooling.sub_category).all()
+    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
 
-    return render_template('sub_category.html', tooling=tooling)
+    return render_template('sub_category.html', nav_bar=nav_bar, tooling=tooling)
 
 
 @app.route('/sub/<ind_item>')
 def items_url(ind_item):
     tooling = Cabinet_Tooling.query.filter_by(edp=ind_item).order_by(Cabinet_Tooling.edp).all()
+    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
     
-    return render_template('items.html', tooling=tooling)
+    return render_template('items.html', nav_bar=nav_bar, tooling=tooling)
 
 
 @app.route('/item/<product_code>', methods=['POST'])
@@ -84,8 +88,9 @@ def remove_item(product_code):
         db.session.commit()
 
     tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
+    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
 
-    return render_template('items.html', tooling=tooling)
+    return render_template('items.html', nav_bar=nav_bar, tooling=tooling)
 
 
 @app.route('/add/update>', methods=['POST'])
@@ -99,8 +104,9 @@ def add_item():
         db.session.commit()
 
     tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
+    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
 
-    return render_template('items.html', tooling=tooling)
+    return render_template('items.html', nav_bar=nav_bar, tooling=tooling)
 
 
 
@@ -108,8 +114,9 @@ def add_item():
 @auth.login_required
 def admin(product_code):
     tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
+    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
     
-    return render_template('update_item.html', tooling=tooling)
+    return render_template('update_item.html', nav_bar=nav_bar, tooling=tooling)
 
 
 

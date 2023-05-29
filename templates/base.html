@@ -26,10 +26,10 @@
                     <li class="nav-item">
                         <a href="{{ url_for('index') }}" class="nav-link">Home</a>
                     </li>
-                    {% for tools in tooling %}
-                        {% if loop.changed(tools.category_url) %}
+                    {% for item in nav_bar %}
+                        {% if loop.changed(item.category_url) %}
                             <li class="nav-item">
-                                <a href="{{ url_for('category_url', cat_url=tools.category_url) }}" class="nav-link">{{ tools.category }}</a>
+                                <a href="{{ url_for('category_url', cat_url=item.category_url) }}" class="nav-link">{{ item.category }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
