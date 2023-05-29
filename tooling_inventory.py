@@ -3,6 +3,10 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import update, insert
 from sqlalchemy.orm import Session
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
+
+auth = HTTPBasicAuth()
 
 app = Flask(__name__)
 app.secret_key = "tarfu"
@@ -32,7 +36,16 @@ class Cabinet_Tooling(db.Model):
     purchased = db.Column(db.Date, nullable=False)
     
 
-   
+@auth.verify_password
+def verify_password(username, password):
+    user = 'sifu'
+    pw = '800g3r'
+    users = {
+        user: generate_password_hash(pw)
+    }
+    if username in users:
+        return check_password_hash(users.get(username), password)
+    return False
 
 
 @app.route('/')
@@ -78,13 +91,12 @@ def remove_item(product_code):
 @app.route('/add/update>', methods=['POST'])
 def add_item():
     product_code = request.args.get('product_code')
-    product_quantity = request.form.get('quantity')
-    print(product_code)
-    print(product_quantity)
-    product = Cabinet_Tooling.query.get(product_code)
-    new_quantity = product.quantity + int(product_quantity)
-    product.quantity = new_quantity
-    db.session.commit()
+    product_quantity = int(request.form.get('quantity'))
+    if product_quantity > 0:
+        product = Cabinet_Tooling.query.get(product_code)
+        new_quantity = product.quantity + product_quantity
+        product.quantity = new_quantity
+        db.session.commit()
 
     tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
 
@@ -93,7 +105,8 @@ def add_item():
 
 
 @app.route('/prod/<product_code>')
-def admin_quantity(product_code):
+@auth.login_required
+def admin(product_code):
     tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
     
     return render_template('update_item.html', tooling=tooling)

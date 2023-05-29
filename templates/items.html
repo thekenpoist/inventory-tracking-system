@@ -58,9 +58,8 @@
                         </form>
                     {% else %}
                         <h3 style="color:red;">OUT OF STOCK</h3>
-                        <class="nav-item">
-                            <a href="{{ url_for('admin_quantity', product_code=tools.edp) }}" class="nav-link">Admin</a>
                     {% endif %}
+                    <a href="{{ url_for('admin', product_code=tools.edp) }}" class="nav-link">Admin</a>
                 </div>
             </div>
         </div>
