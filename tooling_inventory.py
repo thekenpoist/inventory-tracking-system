@@ -1,8 +1,6 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import update, insert
-from sqlalchemy.orm import Session
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 
