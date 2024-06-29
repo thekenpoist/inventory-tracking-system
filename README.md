@@ -1,5 +1,5 @@
 # inventory-tracking-system
-NOTE: This project is still under development with new features added weekly
+NOTE: This project is still under development with new features developed as time permits
 
 
 Inventory Tracking System
