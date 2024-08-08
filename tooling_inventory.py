@@ -24,7 +24,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
-class Cabinet_Tooling(db.Model):
+class CabinetTooling(db.Model):
     __tablename__ = "cabinet_tooling"
     category = db.Column(db.String(250), nullable=False)
     category_url = db.Column(db.String(50), nullable=False)
@@ -60,8 +60,8 @@ def verify_password(username, password):
 @app.route('/')
 def index():
     # Render home page - route to index.html
-    tooling = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
-    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
+    tooling = CabinetTooling.query.order_by(CabinetTooling.category).all()
+    nav_bar = CabinetTooling.query.order_by(CabinetTooling.category).all()
     return render_template('index.html', nav_bar=nav_bar, tooling=tooling)
 
 
@@ -71,8 +71,8 @@ def category_url(cat_url):
     if cat_url.endswith(('.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg')):
         return "Resource not found", 404
     # print(f"category_url route accessed with cat_url: {cat_url}")
-    tooling = Cabinet_Tooling.query.filter_by(category_url=cat_url).order_by(Cabinet_Tooling.category).all()
-    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
+    tooling = CabinetTooling.query.filter_by(category_url=cat_url).order_by(CabinetTooling.category).all()
+    nav_bar = CabinetTooling.query.order_by(CabinetTooling.category).all()
     return render_template('category.html', nav_bar=nav_bar, tooling=tooling)
 
 
@@ -82,8 +82,8 @@ def sub_category_url(sub_cat_url):
     if sub_cat_url.endswith(('.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg')):
         return "Resource not found", 404
     # print(f"sub_category_url route accessed with sub_cat_url: {sub_cat_url}")
-    tooling = Cabinet_Tooling.query.filter_by(sub_category_url=sub_cat_url).order_by(Cabinet_Tooling.sub_category).all()
-    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
+    tooling = CabinetTooling.query.filter_by(sub_category_url=sub_cat_url).order_by(CabinetTooling.sub_category).all()
+    nav_bar = CabinetTooling.query.order_by(CabinetTooling.category).all()
     return render_template('sub_category.html', nav_bar=nav_bar, tooling=tooling)
 
 
@@ -93,8 +93,8 @@ def items_url(ind_item):
     if ind_item.endswith(('.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg')):
         return "Resource not found", 404
     # print(f"items_url route accessed with ind_item: {ind_item}")
-    tooling = Cabinet_Tooling.query.filter_by(edp=ind_item).order_by(Cabinet_Tooling.edp).all()
-    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
+    tooling = CabinetTooling.query.filter_by(edp=ind_item).order_by(CabinetTooling.edp).all()
+    nav_bar = CabinetTooling.query.order_by(CabinetTooling.category).all()
     return render_template('items.html', nav_bar=nav_bar, tooling=tooling)
 
 
@@ -102,29 +102,29 @@ def items_url(ind_item):
 def remove_item(product_code):
     # Remove an item from inventory and route back to items.html
     # print(f"remove item route accessed with product code: {product_code}")
-    product = db.session.get(Cabinet_Tooling, product_code)
+    product = db.session.get(CabinetTooling, product_code)
     if product.quantity > 0:
         new_quantity = product.quantity - 1
         product.quantity = new_quantity
         db.session.commit()
-    tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
-    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
+    tooling = CabinetTooling.query.filter_by(edp=product_code).order_by(CabinetTooling.edp).all()
+    nav_bar = CabinetTooling.query.order_by(CabinetTooling.category).all()
     return render_template('items.html', nav_bar=nav_bar, tooling=tooling)
 
 
-@app.route('/add/update>', methods=['POST'])
+@app.route('/add/<update>', methods=['POST'])
 def add_item():
     # Update item quantity and route back to items.html
     product_code = request.args.get('product_code')
     product_quantity = int(request.form.get('quantity'))
     if product_quantity > 0:
-        product = db.session.get(Cabinet_Tooling, product_code)
+        product = db.session.get(CabinetTooling, product_code)
         new_quantity = product.quantity + product_quantity
         product.quantity = new_quantity
         db.session.commit()
 
-    tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
-    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
+    tooling = CabinetTooling.query.filter_by(edp=product_code).order_by(CabinetTooling.edp).all()
+    nav_bar = CabinetTooling.query.order_by(CabinetTooling.category).all()
     return render_template('items.html', nav_bar=nav_bar, tooling=tooling)
 
 
@@ -135,12 +135,12 @@ def admin(product_code):
     if product_code.endswith(('.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg')):
         return "Resource not found", 404
     # print(f"admin route accessed with product code: {product_code}")
-    tooling = Cabinet_Tooling.query.filter_by(edp=product_code).order_by(Cabinet_Tooling.edp).all()
-    nav_bar = Cabinet_Tooling.query.order_by(Cabinet_Tooling.category).all()
+    tooling = CabinetTooling.query.filter_by(edp=product_code).order_by(CabinetTooling.edp).all()
+    nav_bar = CabinetTooling.query.order_by(CabinetTooling.category).all()
     return render_template('update_item.html', nav_bar=nav_bar, tooling=tooling)
 
 
-#@app.route('/newitem', methods=['POST'])
+#@app.route('/new_product>', methods=['POST'])
 #@auth.login_required
 #def new_product():
 
